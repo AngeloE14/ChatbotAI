@@ -1,0 +1,17 @@
+from transformers import pipeline
+
+def chat_with_ai():
+    chatbot = pipeline("text-generation", model="EleutherAI/gpt-neo-1.3B")
+    print("Bienvenido al chatbot AI. Escribe 'salir' para terminar.")
+    
+    while True:
+        user_input = input("Tú: ")
+        if user_input.lower() == "salir":
+            print("Chat finalizado.")
+            break
+        
+        response = chatbot(user_input, max_length=100, do_sample=True, temperature=0.7)
+        print("AI:", response[0]['generated_text'][len(user_input):].strip())
+
+if __name__ == "__main__":
+    chat_with_ai()
